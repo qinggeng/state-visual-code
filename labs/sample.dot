@@ -1,0 +1,58 @@
+digraph {
+	graph [concentrate=True,
+		dim=2,
+		layout=sfdp,
+		splines=ortho
+	];
+	node [label="\N",
+		shape=box,
+		style=rounded
+	];
+	edge [decorate=True];
+	"*"	 [fillcolor=black,
+		label="",
+		shape=circle,
+		style=filled];
+	idle	 [label=<<TABLE 
+        cellborder="0"
+        border = "1"
+        style = "rounded"
+      >
+        <TR><TD>idle</TD></TR>
+        <HR/>
+        <TR><TD>Entry:</TD><TD><I>on_entry_idle</I></TD></TR>
+        <TR><TD>Exit:</TD><TD><I>on_exit_idle</I></TD></TR>
+      </TABLE>>,
+		shape=plaintext];
+	"*" -> idle	 [tooltip=初始变换，没有任何动作];
+	"{\"fs\": \"idle\", \"ts\": \"value_changed\", \"ev\": \"set_value\"}"	 [label=<<TABLE 
+        border="0"
+        cellborder="0"
+      >
+        <TR><TD>set_value</TD></TR>
+        <HR/>
+        <TR><TD><I>set_value</I></TD></TR>
+      </TABLE>>,
+		shape=plaintext,
+		tooltip=" "];
+	idle -> "{\"fs\": \"idle\", \"ts\": \"value_changed\", \"ev\": \"set_value\"}"	 [arrowhead=none,
+		tooltip=" "];
+	"{\"fs\": \"idle\", \"ts\": \"X\", \"ev\": \"terminate\"}"	 [label=terminate,
+		shape=plaintext,
+		tooltip=" "];
+	idle -> "{\"fs\": \"idle\", \"ts\": \"X\", \"ev\": \"terminate\"}"	 [arrowhead=none,
+		tooltip=" "];
+	"{\"fs\": \"idle\", \"ts\": \"value_changed\", \"ev\": \"set_value\"}" -> value_changed	 [tooltip=" "];
+	X	 [fillcolor=black,
+		label="",
+		shape=doublecircle,
+		style=filled];
+	"{\"fs\": \"idle\", \"ts\": \"X\", \"ev\": \"terminate\"}" -> X	 [tooltip=" "];
+	"{\"fs\": \"value_changed\", \"ts\": \"idle\", \"ev\": \"reset\"}"	 [label=reset,
+		shape=plaintext,
+		tooltip=" "];
+	value_changed -> "{\"fs\": \"value_changed\", \"ts\": \"idle\", \"ev\": \"reset\"}"	 [arrowhead=none,
+		tooltip=" "];
+	"{\"fs\": \"value_changed\", \"ts\": \"idle\", \"ev\": \"reset\"}" -> idle	 [tooltip=" "];
+}
+
